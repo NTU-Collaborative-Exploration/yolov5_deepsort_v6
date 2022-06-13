@@ -1,1 +1,7 @@
 .vscode/
+.idea/
+__pycache__/
+
+runs/
+*.pth
+*.pt
