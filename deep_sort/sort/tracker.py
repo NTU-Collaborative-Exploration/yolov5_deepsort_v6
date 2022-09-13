@@ -35,7 +35,7 @@ class Tracker:
     """
     GATING_THRESHOLD = np.sqrt(kalman_filter.chi2inv95[4])
 
-    def __init__(self, metric, max_iou_distance=0.9, max_age=30, n_init=3, _lambda=0):
+    def __init__(self, metric, max_iou_distance=0.9, max_age=30, n_init=3, _lambda=0, channel=0):
         self.metric = metric
         self.max_iou_distance = max_iou_distance
         self.max_age = max_age
@@ -44,7 +44,7 @@ class Tracker:
 
         self.kf = kalman_filter.KalmanFilter()
         self.tracks = []
-        self._next_id = 1
+        self._next_id = channel << 24 | 1  # 高8位存放通道序号
 
     def predict(self):
         """Propagate track state distributions one time step forward.

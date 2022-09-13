@@ -20,7 +20,8 @@ __all__ = ['DeepSort']
 
 
 class DeepSort(object):
-    def __init__(self, model, device, max_dist=0.2, max_iou_distance=0.7, max_age=70, n_init=3, nn_budget=100):
+    def __init__(self, model, device, max_dist=0.2, max_iou_distance=0.7, max_age=70, n_init=3, nn_budget=100, 
+        channel=0):
         # models trained on: market1501, dukemtmcreid and msmt17
         if is_model_in_factory(model):
             # download the model
@@ -51,7 +52,7 @@ class DeepSort(object):
         metric = NearestNeighborDistanceMetric(
             "euclidean", max_cosine_distance, nn_budget)
         self.tracker = Tracker(
-            metric, max_iou_distance=max_iou_distance, max_age=max_age, n_init=n_init)
+            metric, max_iou_distance=max_iou_distance, max_age=max_age, n_init=n_init, channel=channel)
 
     def update(self, bbox_xywh, confidences, classes, ori_img, use_yolo_preds=False):
         self.height, self.width = ori_img.shape[:2]
