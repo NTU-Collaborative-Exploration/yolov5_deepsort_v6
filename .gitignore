@@ -3,7 +3,5 @@
 __pycache__/
 
 runs/
-*.pth
-*.pt
 
-deep_sort/deep/reid/
+
